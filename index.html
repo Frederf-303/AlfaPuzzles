@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Ну и че ты смотришь, пазл собирай</title>
+    <title>Puzzle Max — большой пазл на весь экран</title>
     <style>
         * {
             margin: 0;
@@ -12,10 +12,6 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-
-
-
-
 
         .photo-container {
             width: 100%;
@@ -40,214 +36,227 @@
             transition: transform 0.5s ease;
         }
 
-        
-
-
 
         body {
             min-height: 100vh;
-            background: linear-gradient(145deg, #1e2b32 0%, #0f1922 100%);
+            background: linear-gradient(145deg, #0f1a1f 0%, #0a1117 100%);
             font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 12px;
         }
 
+        /* контейнер — максимально широкий, без лишних отступов */
         .puzzle-container {
-            max-width: 1200px;
             width: 100%;
-            background: rgba(22, 34, 48, 0.65);
-            backdrop-filter: blur(16px);
-            border-radius: 56px;
-            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.15);
-            padding: 24px 28px 32px;
-            border: 1px solid rgba(255,215,150,0.3);
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(18, 28, 35, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+            padding: 16px 18px 22px;
+            border: 1px solid rgba(255,200,120,0.25);
             transition: all 0.2s;
         }
 
+        /* заголовок компактный */
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         .header h1 {
-            font-size: 2.4rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FFE6B0, #FFB347, #FF8C42);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
         .header p {
-            color: #d9e9fa;
-            opacity: 0.85;
-            font-weight: 500;
-            font-size: 0.9rem;
+            color: #c8daea;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            display: none;
+        }
+        /* на мобильных показываем короткую версию */
+        @media (max-width: 650px) {
+            .header h1 { font-size: 1.4rem; }
+            .puzzle-container { padding: 12px; }
         }
 
-        /* upload area */
+        /* upload зона - компактная, но заметная */
         .upload-card {
-            background: rgba(10, 20, 28, 0.6);
-            border: 2px dashed rgba(255, 190, 80, 0.7);
-            border-radius: 44px;
-            padding: 18px 20px;
-            margin-bottom: 28px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1.5px dashed rgba(255, 190, 80, 0.7);
+            border-radius: 60px;
+            padding: 8px 16px;
+            margin-bottom: 18px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         .upload-card:hover {
-            background: rgba(30, 50, 65, 0.8);
+            background: rgba(40, 60, 75, 0.7);
             border-color: #ffbc6e;
         }
         .upload-icon {
-            font-size: 2.8rem;
-            margin-bottom: 6px;
+            font-size: 1.6rem;
         }
         .upload-text {
             font-weight: 600;
             color: #ffdd99;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
         }
         .upload-btn {
             background: #ffb347;
             border: none;
-            padding: 10px 28px;
-            border-radius: 50px;
+            padding: 6px 20px;
+            border-radius: 40px;
             font-weight: bold;
             color: #2d2418;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .upload-btn:active { transform: scale(0.96); background: #e6952e; }
         input[type="file"] { display: none; }
 
-        /* toolbar */
+        /* панель инструментов — компактная */
         .toolbar {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 18px;
+            gap: 12px;
             align-items: center;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
-            border-radius: 80px;
-            padding: 10px 24px;
-            margin-bottom: 24px;
+            border-radius: 60px;
+            padding: 8px 18px;
+            margin-bottom: 16px;
         }
         .difficulty-wrap {
             background: #1f313c;
-            border-radius: 60px;
-            padding: 4px 18px;
+            border-radius: 40px;
+            padding: 3px 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             color: #fff3cf;
             font-weight: 600;
+            font-size: 0.8rem;
         }
         .difficulty-wrap select {
             background: #ffefcf;
             border: none;
-            padding: 8px 14px;
-            border-radius: 40px;
+            padding: 5px 12px;
+            border-radius: 30px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.8rem;
             cursor: pointer;
-            outline: none;
         }
         .action-btn {
             background: #f5a623;
             border: none;
-            padding: 8px 28px;
+            padding: 6px 22px;
             border-radius: 40px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #2c1d0c;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .action-btn:active { transform: scale(0.96); background: #dc8b1c; }
+        .action-btn:active { transform: scale(0.96); }
         .shuffle-btn {
             background: #3a6b5b;
             color: #faf3cf;
         }
-        .shuffle-btn:active { background: #2c5446; }
 
-        /* stats */
+        /* статистика - минималистичная */
         .stats {
             display: flex;
             justify-content: center;
-            gap: 36px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 60px;
-            padding: 8px 24px;
-            margin-bottom: 24px;
-            font-weight: bold;
+            gap: 24px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50px;
+            padding: 6px 20px;
+            margin-bottom: 18px;
         }
         .stat {
             background: #1f2e38;
-            padding: 5px 20px;
+            padding: 3px 16px;
             border-radius: 40px;
             display: flex;
-            gap: 12px;
+            gap: 8px;
             align-items: baseline;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #ffeaac;
         }
-        .stat span:first-child { font-size: 0.9rem; opacity: 0.9; }
-        .stat span:last-child { font-size: 1.7rem; font-weight: 800; color: #ffcd7e; }
+        .stat span:first-child { font-size: 0.75rem; }
+        .stat span:last-child { font-size: 1.4rem; font-weight: 800; color: #ffcd7e; }
 
-        /* canvas wrapper */
+        /* ГЛАВНОЕ: канвас занимает МАКСИМУМ места */
         .canvas-area {
             display: flex;
             justify-content: center;
-            background: rgba(0,0,0,0.25);
-            border-radius: 48px;
-            padding: 16px;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 36px;
+            padding: 8px;
         }
         canvas {
             display: block;
-            border-radius: 32px;
-            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
+            border-radius: 28px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.6);
             background: #1e2a32;
             cursor: grab;
             touch-action: none;
             width: 100%;
             height: auto;
             aspect-ratio: 1 / 1;
-            max-width: 700px;
+            /* максимальная ширина — почти весь экран */
+            max-width: 98vw;
         }
         canvas:active { cursor: grabbing; }
+        
+        /* подсказка мелкая */
         .tip {
             text-align: center;
-            font-size: 0.75rem;
-            color: #bdd4e8;
+            font-size: 0.65rem;
+            color: #aac3d9;
             background: rgba(0,0,0,0.3);
             border-radius: 40px;
-            padding: 8px;
-            margin-top: 18px;
+            padding: 6px;
+            margin-top: 14px;
         }
-        @media (max-width: 650px) {
-            .puzzle-container { padding: 16px; }
-            .toolbar { border-radius: 40px; gap: 10px; }
-            .stat span:last-child { font-size: 1.3rem; }
-            .header h1 { font-size: 1.8rem; }
+        
+        @media (max-width: 550px) {
+            .toolbar { gap: 8px; padding: 6px 12px; }
+            .difficulty-wrap { padding: 2px 10px; gap: 4px; font-size: 0.7rem; }
+            .action-btn { padding: 5px 14px; font-size: 0.75rem; }
+            .stat { padding: 2px 12px; gap: 5px; }
+            .stat span:last-child { font-size: 1.2rem; }
+            .upload-card { padding: 5px 12px; gap: 6px; }
+            .upload-text { font-size: 0.7rem; }
         }
         .fade-pop {
-            animation: popFade 0.35s ease-out;
+            animation: popFade 0.3s ease-out;
         }
         @keyframes popFade {
-            from { opacity: 0; transform: scale(0.96); }
+            from { opacity: 0; transform: scale(0.97); }
             to { opacity: 1; transform: scale(1); }
         }
     </style>
@@ -260,9 +269,9 @@
     </div>
 
     <div class="upload-card" id="uploadZone">
-        <div class="upload-icon">🖼️📤</div>
-        <div class="upload-text">Кликни или перетащи изображение</div>
-        <button class="upload-btn" id="uploadBtn">➕ Выбрать фото</button>
+        <div class="upload-icon">🖼️</div>
+        <div class="upload-text">Нажми или перетащи фото</div>
+        <button class="upload-btn" id="uploadBtn">➕ Выбрать</button>
         <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/jpg">
     </div>
 
@@ -278,8 +287,8 @@
                 <option value="8">8x8 (пачка кириешек)</option>
             </select>
         </div>
-        <button class="action-btn" id="createBtn">🎲 Создать пазл</button>
-        <button class="action-btn shuffle-btn" id="shuffleBtn">🔄 Перемешать</button>
+        <button class="action-btn" id="createBtn">🎲 Создать</button>
+        <button class="action-btn shuffle-btn" id="shuffleBtn">🔄 Тасовка</button>
     </div>
 
     <div class="stats">
@@ -288,11 +297,11 @@
     </div>
 
     <div class="canvas-area">
-        <canvas id="puzzleCanvas" width="600" height="600"></canvas>
+        <canvas id="puzzleCanvas" width="700" height="700"></canvas>
     </div>
     <div class="tip">
-         Просто перетаскивай кусочки пальцем или мышкой. При попадании в зону своего места — фрагмент «примагнитится»! <br>
-         Собери пазл — и ты забудешь что ты бибизян. <br>
+        Просто перетаскивай кусочки пальцем или мышкой. При попадании в зону своего места — фрагмент «примагнитится»! <br>
+         Собери пазл — и ты ну незнаю, молодец навреное. <br>
          О Катя, привет:] <br>
          Писать восторженные отзывы сюда @FreDerF
     </div>
@@ -304,7 +313,7 @@
     <div class="photo-container">
             <img src="qr.png">
     </div>
-    
+
 </div>
 
 <script>
@@ -323,92 +332,133 @@
 
         // ----- ИГРОВЫЕ ПАРАМЕТРЫ -----
         let img = new Image();
-        let pieces = [];            // массив объектов фрагментов
-        let selectedPiece = null;   // выбранный в данный момент фрагмент
+        let pieces = [];            // фрагменты
+        let selectedPiece = null;
         let dragOffsetX = 0, dragOffsetY = 0;
-        let gridSize = 4;           // 4x4 по умолчанию
-        let pieceWidth = 0, pieceHeight = 0;   // размер одного фрагмента в пикселях CANVAS
+        let gridSize = 4;           // 4x4
+        let pieceWidth = 0, pieceHeight = 0;
         let moves = 0;
         let timerSeconds = 0;
         let timerInterval = null;
-        let gameActive = false;      // активен ли пазл (есть картинка и сетка)
-        let canvasSize = 600;        // квадрат 600px
-
-        // Настройка холста
-        canvas.width = canvasSize;
-        canvas.height = canvasSize;
-        let animationFrame = null;
-
-        // ----- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ -----
-        function stopTimer() {
-            if(timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
+        let gameActive = false;
+        
+        // РАЗМЕР КАНВАСА — ДЕЛАЕМ МАКСИМАЛЬНО БОЛЬШИМ, НО С УЧЕТОМ ЭКРАНА
+        // Будем устанавливать размер в зависимости от ширины контейнера, но не меньше 400px
+        let canvasSize = 700;  // стартовый, потом подстроим под экран
+        
+        function resizeCanvasToFit() {
+            // получаем ширину родительского контейнера canvas-area
+            const container = document.querySelector('.canvas-area');
+            if(!container) return;
+            const containerWidth = container.clientWidth - 16; // отступы
+            let newSize = Math.min(containerWidth, window.innerWidth - 40);
+            newSize = Math.max(newSize, 320); // минимум 320px
+            canvasSize = newSize;
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+            canvas.style.width = `${canvasSize}px`;
+            canvas.style.height = `${canvasSize}px`;
+            canvas.style.maxWidth = '100%';
+            canvas.style.height = 'auto';
+            // если пазл активен, пересчитываем координаты фрагментов и сетку
+            if(gameActive && pieces.length > 0 && img.complete) {
+                rebuildGridFromCurrentImage();
+            } else if(!gameActive) {
+                drawPlaceholder();
+            } else {
+                drawPuzzle();
             }
         }
-
-        function startTimer() {
-            stopTimer();
-            if(!gameActive) return;
-            timerSeconds = 0;
-            timerSpan.innerText = "0";
-            timerInterval = setInterval(() => {
-                if(gameActive) {
-                    timerSeconds++;
-                    timerSpan.innerText = timerSeconds;
+        
+        // перестроить сетку с сохранением изображения, но с новыми размерами канваса
+        function rebuildGridFromCurrentImage() {
+            if(!img.complete || img.naturalWidth === 0) return;
+            // сохраняем старые locked-состояния? лучше пересоздать пазл с сохранением перемешанности
+            // но чтобы не сбросить прогресс, адаптируем: сохраняем привязку кусочков по их целевым позициям
+            const oldPieces = pieces;
+            const newPieceWidth = canvasSize / gridSize;
+            const newPieceHeight = canvasSize / gridSize;
+            const imgPieceW = img.naturalWidth / gridSize;
+            const imgPieceH = img.naturalHeight / gridSize;
+            
+            const newPieces = [];
+            for(let row = 0; row < gridSize; row++) {
+                for(let col = 0; col < gridSize; col++) {
+                    const targetX = col * newPieceWidth;
+                    const targetY = row * newPieceHeight;
+                    // ищем старый фрагмент с такой же целевой позицией (row,col)
+                    let oldPiece = oldPieces.find(p => p.targetRow === row && p.targetCol === col);
+                    let startX, startY;
+                    if(oldPiece && !oldPiece.locked) {
+                        // сохраняем пропорциональное расположение
+                        const ratioX = oldPiece.x / (canvas.width || canvasSize);
+                        const ratioY = oldPiece.y / (canvas.height || canvasSize);
+                        startX = ratioX * canvasSize;
+                        startY = ratioY * canvasSize;
+                        startX = Math.min(Math.max(startX, 2), canvasSize - newPieceWidth - 2);
+                        startY = Math.min(Math.max(startY, 2), canvasSize - newPieceHeight - 2);
+                    } else if(oldPiece && oldPiece.locked) {
+                        startX = targetX;
+                        startY = targetY;
+                    } else {
+                        startX = Math.random() * (canvasSize - newPieceWidth);
+                        startY = Math.random() * (canvasSize - newPieceHeight);
+                        startX = Math.min(Math.max(startX, 2), canvasSize - newPieceWidth - 2);
+                        startY = Math.min(Math.max(startY, 2), canvasSize - newPieceHeight - 2);
+                    }
+                    newPieces.push({
+                        id: row * gridSize + col,
+                        sx: col * imgPieceW,
+                        sy: row * imgPieceH,
+                        srcW: imgPieceW,
+                        srcH: imgPieceH,
+                        x: startX,
+                        y: startY,
+                        w: newPieceWidth,
+                        h: newPieceHeight,
+                        targetX: targetX,
+                        targetY: targetY,
+                        locked: oldPiece ? oldPiece.locked : false,
+                        targetRow: row,
+                        targetCol: col
+                    });
                 }
-            }, 1000);
-        }
-
-        function incrementMoves() {
-            if(!gameActive) return;
-            moves++;
-            movesSpan.innerText = moves;
-        }
-
-        function resetStats(keepTimer = false) {
-            moves = 0;
-            movesSpan.innerText = "0";
-            if(!keepTimer) {
-                stopTimer();
-                if(gameActive) startTimer();
             }
+            pieces = newPieces;
+            pieceWidth = newPieceWidth;
+            pieceHeight = newPieceHeight;
+            drawPuzzle();
+            checkVictory();
         }
-
-        // Отрисовка всех фрагментов
+        
+        // отрисовка
         function drawPuzzle() {
             if(!gameActive) return;
             ctx.clearRect(0, 0, canvasSize, canvasSize);
-            // фон (декоративный)
-            ctx.fillStyle = "#252e36";
+            ctx.fillStyle = "#202a32";
             ctx.fillRect(0, 0, canvasSize, canvasSize);
-            
             for(let p of pieces) {
-                // рисуем фрагмент из оригинального изображения
                 ctx.drawImage(img, p.sx, p.sy, p.srcW, p.srcH, p.x, p.y, p.w, p.h);
-                // стильная обводка
                 ctx.save();
-                ctx.shadowBlur = 0;
                 ctx.strokeStyle = p.locked ? "#FFD966" : "#E6CAA0";
                 ctx.lineWidth = 1.8;
                 ctx.strokeRect(p.x, p.y, p.w, p.h);
                 if(!p.locked) {
-                    ctx.shadowBlur = 3;
+                    ctx.shadowBlur = 2;
                     ctx.shadowColor = "rgba(0,0,0,0.3)";
+                    ctx.strokeRect(p.x, p.y, p.w, p.h);
                 }
                 ctx.restore();
             }
         }
-
-        // Проверка и "примагничивание" фрагмента к его правильной позиции
+        
+        // притягивание
         function trySnap(piece) {
             if(piece.locked) return false;
-            // дистанция срабатывания (чувствительность)
-            const SNAP_RADIUS = 28;
+            const SNAP_RADIUS = 32;
             const dx = piece.x - piece.targetX;
             const dy = piece.y - piece.targetY;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if(dist < SNAP_RADIUS) {
+            if(Math.abs(dx) < SNAP_RADIUS && Math.abs(dy) < SNAP_RADIUS) {
                 piece.x = piece.targetX;
                 piece.y = piece.targetY;
                 piece.locked = true;
@@ -417,57 +467,46 @@
             }
             return false;
         }
-
-        // Проверка полной победы
+        
         function checkVictory() {
             if(!gameActive) return false;
             const allLocked = pieces.length > 0 && pieces.every(p => p.locked === true);
             if(allLocked) {
-                gameActive = false;  // блокируем дальнейшие перемещения
+                gameActive = false;
                 stopTimer();
                 setTimeout(() => {
-                    alert(`🎉 ПОБЕДА! 🎉\n✨ Время: ${timerSeconds} секунд\n🏆 Ходов: ${moves}\nОтлично собрали пазл!`);
-                }, 50);
+                    alert(`🎉 ПОБЕДА! 🎉\n✨ Время: ${timerSeconds} сек\n🏆 Ходов: ${moves}`);
+                }, 60);
                 return true;
             }
             return false;
         }
-
-        // Построение пазла из загруженной картинки
+        
+        // построение пазла с нуля
         function buildPuzzle() {
             if(!img.complete || img.naturalWidth === 0) {
-                alert("Сначала загрузите изображение (нажмите на область загрузки)");
+                alert("Сначала загрузите изображение");
                 return false;
             }
-            
             gameActive = true;
-            // получаем размер сетки
             gridSize = parseInt(gridSelect.value, 10);
-            // вычисляем размер фрагментов на канвасе (квадратная сетка)
             pieceWidth = canvasSize / gridSize;
             pieceHeight = canvasSize / gridSize;
-            
-            // Исходные размеры на картинке (src)
             const imgPieceW = img.naturalWidth / gridSize;
             const imgPieceH = img.naturalHeight / gridSize;
-            
             const newPieces = [];
-            // создаем фрагменты в правильном порядке (индекс = правильная позиция)
             for(let row = 0; row < gridSize; row++) {
                 for(let col = 0; col < gridSize; col++) {
                     const targetX = col * pieceWidth;
                     const targetY = row * pieceHeight;
-                    // начальная позиция - случайное смещение по холсту, но чтобы не выходило за границы
                     let randomX = Math.random() * (canvasSize - pieceWidth);
                     let randomY = Math.random() * (canvasSize - pieceHeight);
-                    // ограничим края
-                    randomX = Math.min(Math.max(randomX, 2), canvasSize - pieceWidth - 2);
-                    randomY = Math.min(Math.max(randomY, 2), canvasSize - pieceHeight - 2);
-                    
+                    randomX = Math.min(Math.max(randomX, 4), canvasSize - pieceWidth - 4);
+                    randomY = Math.min(Math.max(randomY, 4), canvasSize - pieceHeight - 4);
                     newPieces.push({
                         id: row * gridSize + col,
-                        sx: col * imgPieceW,          // исходная координата X на картинке
-                        sy: row * imgPieceH,          // исходная координата Y на картинке
+                        sx: col * imgPieceW,
+                        sy: row * imgPieceH,
                         srcW: imgPieceW,
                         srcH: imgPieceH,
                         x: randomX,
@@ -477,20 +516,17 @@
                         targetX: targetX,
                         targetY: targetY,
                         locked: false,
-                        row: row,
-                        col: col
+                        targetRow: row,
+                        targetCol: col
                     });
                 }
             }
-            
-            // Перемешивание: делаем 200 случайных обменов позициями между фрагментами (чтобы пазл был реально хаотичным)
-            for(let swap = 0; swap < 250; swap++) {
+            // интенсивное перемешивание обменом позиций
+            for(let s = 0; s < 300; s++) {
                 const a = Math.floor(Math.random() * newPieces.length);
                 const b = Math.floor(Math.random() * newPieces.length);
                 if(a !== b) {
-                    // меняем местами текущие координаты x, y и сбрасываем locked
-                    const tempX = newPieces[a].x;
-                    const tempY = newPieces[a].y;
+                    const tempX = newPieces[a].x, tempY = newPieces[a].y;
                     newPieces[a].x = newPieces[b].x;
                     newPieces[a].y = newPieces[b].y;
                     newPieces[b].x = tempX;
@@ -499,20 +535,19 @@
                     newPieces[b].locked = false;
                 }
             }
-            // дополнительная проверка: если какой-то фрагмент случайно оказался на своем месте с малым расстоянием - чуть сдвинем
+            // доводка: чтобы слишком близкие к своим местам сдвинуть
             for(let p of newPieces) {
-                const dx = Math.abs(p.x - p.targetX);
-                const dy = Math.abs(p.y - p.targetY);
-                if(dx < 12 && dy < 12 && !p.locked) {
-                    p.x = Math.min(Math.max(p.x + (Math.random() * 50 - 25), 5), canvasSize - p.w - 5);
-                    p.y = Math.min(Math.max(p.y + (Math.random() * 50 - 25), 5), canvasSize - p.h - 5);
+                const distToHome = Math.hypot(p.x - p.targetX, p.y - p.targetY);
+                if(distToHome < 25) {
+                    p.x = Math.min(Math.max(p.x + (Math.random() * 70 - 35), 5), canvasSize - p.w - 5);
+                    p.y = Math.min(Math.max(p.y + (Math.random() * 70 - 35), 5), canvasSize - p.h - 5);
                 }
                 p.locked = false;
             }
-            
             pieces = newPieces;
-            // сброс статистики и запуск таймера
-            resetStats(false);
+            moves = 0;
+            movesSpan.innerText = "0";
+            stopTimer();
             startTimer();
             drawPuzzle();
             canvas.classList.add('fade-pop');
@@ -520,63 +555,46 @@
             return true;
         }
         
-        // Перемешивание текущего пазла (без изменения картинки)
         function shufflePuzzle() {
             if(!gameActive || pieces.length === 0) {
-                if(img.complete && img.naturalWidth > 0) {
-                    buildPuzzle();
-                } else {
-                    alert("Нет активного пазла. Загрузите изображение и нажмите «Создать пазл»");
-                }
+                if(img.complete && img.naturalWidth > 0) buildPuzzle();
+                else alert("Нет активного пазла. Загрузите фото и создайте пазл.");
                 return;
             }
-            // снимаем блокировку со всех фрагментов
-            for(let p of pieces) {
-                p.locked = false;
-            }
-            // многократный обмен позициями
-            for(let s = 0; s < 180; s++) {
+            for(let p of pieces) p.locked = false;
+            for(let s = 0; s < 220; s++) {
                 const i1 = Math.floor(Math.random() * pieces.length);
                 const i2 = Math.floor(Math.random() * pieces.length);
                 if(i1 !== i2) {
-                    const tempX = pieces[i1].x;
-                    const tempY = pieces[i1].y;
+                    const tempX = pieces[i1].x, tempY = pieces[i1].y;
                     pieces[i1].x = pieces[i2].x;
                     pieces[i1].y = pieces[i2].y;
                     pieces[i2].x = tempX;
                     pieces[i2].y = tempY;
                 }
             }
-            // дополнительно небольшой сдвиг для тех, кто оказался слишком близко к своему месту
             for(let p of pieces) {
-                const distToTarget = Math.hypot(p.x - p.targetX, p.y - p.targetY);
-                if(distToTarget < 20) {
-                    p.x = Math.min(Math.max(p.x + (Math.random() * 60 - 30), 8), canvasSize - p.w - 8);
-                    p.y = Math.min(Math.max(p.y + (Math.random() * 60 - 30), 8), canvasSize - p.h - 8);
+                if(Math.hypot(p.x - p.targetX, p.y - p.targetY) < 22) {
+                    p.x = Math.min(Math.max(p.x + (Math.random() * 60 - 30), 6), canvasSize - p.w - 6);
+                    p.y = Math.min(Math.max(p.y + (Math.random() * 60 - 30), 6), canvasSize - p.h - 6);
                 }
                 p.locked = false;
             }
             moves = 0;
             movesSpan.innerText = "0";
-            // перезапуск таймера (продолжаем текущий или обновим)
             stopTimer();
             startTimer();
             drawPuzzle();
         }
         
-        // Инициализация после загрузки картинки
         function initFromImage() {
-            if(!img.complete || img.naturalWidth === 0) {
-                alert("Изображение не загружено");
-                return false;
-            }
+            if(!img.complete || img.naturalWidth === 0) return false;
             return buildPuzzle();
         }
         
-        // Загрузка файла изображения
         function loadNewImage(file) {
             if(!file || !file.type.startsWith('image/')) {
-                alert("Пожалуйста, выберите изображение (jpg, png, webp)");
+                alert("Выберите изображение (jpg, png, webp)");
                 return;
             }
             const reader = new FileReader();
@@ -584,7 +602,7 @@
                 const newImg = new Image();
                 newImg.onload = () => {
                     img = newImg;
-                    // успешно загрузили, создаём пазл
+                    resizeCanvasToFit();  // подгоняем размер канваса под экран
                     initFromImage();
                 };
                 newImg.src = ev.target.result;
@@ -592,10 +610,10 @@
             reader.readAsDataURL(file);
         }
         
-        // ----- ОБРАБОТЧИКИ ПЕРЕТАСКИВАНИЯ (мышь + тач) -----
+        // ---------- Обработчики drag & drop ----------
         function getCanvasCoords(e) {
             const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;    // логические пиксели / CSS размер
+            const scaleX = canvas.width / rect.width;
             const scaleY = canvas.height / rect.height;
             let clientX, clientY;
             if(e.touches) {
@@ -616,14 +634,14 @@
             e.preventDefault();
             if(!gameActive) return;
             const { x, y } = getCanvasCoords(e);
-            // ищем фрагмент, по которому кликнули (ищем с конца для верхнего слоя)
             for(let i = pieces.length-1; i >= 0; i--) {
                 const p = pieces[i];
                 if(!p.locked && x >= p.x && x <= p.x + p.w && y >= p.y && y <= p.y + p.h) {
                     selectedPiece = p;
                     dragOffsetX = x - p.x;
                     dragOffsetY = y - p.y;
-                    incrementMoves();
+                    moves++;
+                    movesSpan.innerText = moves;
                     break;
                 }
             }
@@ -635,7 +653,6 @@
             const { x, y } = getCanvasCoords(e);
             let newX = x - dragOffsetX;
             let newY = y - dragOffsetY;
-            // границы холста
             newX = Math.min(Math.max(newX, 0), canvasSize - selectedPiece.w);
             newY = Math.min(Math.max(newY, 0), canvasSize - selectedPiece.h);
             selectedPiece.x = newX;
@@ -649,97 +666,93 @@
                 return;
             }
             e.preventDefault();
-            // пробуем притянуть к правильному месту
             const snapped = trySnap(selectedPiece);
             if(snapped) {
                 drawPuzzle();
                 checkVictory();
             } else {
-                drawPuzzle(); // перерисовка на случай если двигали
+                drawPuzzle();
             }
             selectedPiece = null;
+        }
+        
+        // заглушка
+        function drawPlaceholder() {
+            ctx.fillStyle = "#1f2a30";
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+            ctx.fillStyle = "#cfebff";
+            ctx.font = `bold ${Math.floor(canvasSize/20)}px system-ui`;
+            ctx.textAlign = "center";
+            ctx.fillText("📸 Загрузите фото", canvasSize/2, canvasSize/2 - 15);
+            ctx.font = `${Math.floor(canvasSize/28)}px system-ui`;
+            ctx.fillStyle = "#c0d4e8";
+            ctx.fillText("и нажмите «Создать»", canvasSize/2, canvasSize/2 + 20);
+        }
+        
+        // таймер
+        function stopTimer() { if(timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
+        function startTimer() {
+            stopTimer();
+            if(!gameActive) return;
+            timerSeconds = 0;
+            timerSpan.innerText = "0";
+            timerInterval = setInterval(() => {
+                if(gameActive) {
+                    timerSeconds++;
+                    timerSpan.innerText = timerSeconds;
+                }
+            }, 1000);
         }
         
         // ----- НАВЕШИВАЕМ СОБЫТИЯ -----
         canvas.addEventListener('mousedown', onDragStart);
         window.addEventListener('mousemove', onDragMove);
         window.addEventListener('mouseup', onDragEnd);
-        
         canvas.addEventListener('touchstart', onDragStart, { passive: false });
         window.addEventListener('touchmove', onDragMove, { passive: false });
         window.addEventListener('touchend', onDragEnd);
         
-        // ----- ИНТЕРАКЦИЯ UI -----
         uploadZone.addEventListener('click', (e) => {
-            if(e.target === uploadBtn || uploadBtn.contains(e.target)) {
-                fileInput.click();
-            } else {
-                fileInput.click();
-            }
+            if(e.target === uploadBtn || uploadBtn.contains(e.target)) fileInput.click();
+            else fileInput.click();
         });
-        uploadBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            fileInput.click();
-        });
-        fileInput.addEventListener('change', (e) => {
-            if(e.target.files && e.target.files[0]) {
-                loadNewImage(e.target.files[0]);
-            }
-        });
+        uploadBtn.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+        fileInput.addEventListener('change', (e) => { if(e.target.files && e.target.files[0]) loadNewImage(e.target.files[0]); });
         
         createBtn.addEventListener('click', () => {
-            if(!img.complete || img.naturalWidth === 0) {
-                alert("Сначала загрузите изображение через область выше ⬆");
-                return;
-            }
-            buildPuzzle();
+            if(!img.complete || img.naturalWidth === 0) alert("Сначала загрузите изображение");
+            else buildPuzzle();
         });
-        
         shuffleBtn.addEventListener('click', () => {
-            if(!gameActive && (!img.complete || img.naturalWidth === 0)) {
-                alert("Нет активного пазла. Загрузите фото и создайте пазл.");
-                return;
-            }
-            if(pieces.length === 0 && img.complete) {
-                buildPuzzle();
-            } else {
-                shufflePuzzle();
-            }
+            if(!gameActive && (!img.complete || img.naturalWidth === 0)) alert("Загрузите фото и создайте пазл");
+            else if(pieces.length === 0 && img.complete) buildPuzzle();
+            else shufflePuzzle();
         });
         
-        // drag & drop файла на зону
-        uploadZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadZone.style.background = "rgba(50, 75, 90, 0.8)";
-        });
-        uploadZone.addEventListener('dragleave', () => {
-            uploadZone.style.background = "rgba(10, 20, 28, 0.6)";
-        });
+        // перетаскивание файла
+        uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.style.background = "rgba(60, 90, 110, 0.8)"; });
+        uploadZone.addEventListener('dragleave', () => { uploadZone.style.background = "rgba(0, 0, 0, 0.45)"; });
         uploadZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadZone.style.background = "rgba(10, 20, 28, 0.6)";
+            uploadZone.style.background = "rgba(0, 0, 0, 0.45)";
             const files = e.dataTransfer.files;
-            if(files.length && files[0].type.startsWith('image/')) {
-                loadNewImage(files[0]);
-            } else {
-                alert("Пожалуйста, перетащите изображение");
-            }
+            if(files.length && files[0].type.startsWith('image/')) loadNewImage(files[0]);
+            else alert("Перетащите изображение");
         });
         
-        // Начальное состояние: заглушка
-        function drawPlaceholder() {
-            ctx.fillStyle = "#1f2a30";
-            ctx.fillRect(0, 0, canvasSize, canvasSize);
-            ctx.fillStyle = "#cfebff";
-            ctx.font = "bold 20px system-ui";
-            ctx.textAlign = "center";
-            ctx.fillText("📸 Загрузите фото", canvasSize/2, canvasSize/2 - 20);
-            ctx.font = "15px system-ui";
-            ctx.fillStyle = "#c0d4e8";
-            ctx.fillText("и нажмите «Создать пазл»", canvasSize/2, canvasSize/2 + 20);
-        }
+        window.addEventListener('resize', () => {
+            resizeCanvasToFit();
+            if(gameActive && pieces.length) rebuildGridFromCurrentImage();
+            else drawPlaceholder();
+        });
+        
+        // инициализация
+        canvasSize = 700;
+        canvas.width = canvasSize;
+        canvas.height = canvasSize;
         drawPlaceholder();
         gameActive = false;
+        setTimeout(() => resizeCanvasToFit(), 100);
     })();
 </script>
 </body>
